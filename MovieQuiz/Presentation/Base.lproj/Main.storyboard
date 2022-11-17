@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tQQ-zj-n0c">
-                                <rect key="frame" x="152" y="348" width="374" height="772.5"/>
+                                <rect key="frame" x="20" y="48" width="374" height="772.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jlM-5t-sDD">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="23.5"/>
@@ -53,7 +53,7 @@
                                         <rect key="frame" x="0.0" y="584.5" width="374" height="128"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyc-G2-fRV" userLabel="Question Label">
-                                                <rect key="frame" x="-49" y="53" width="344" height="24"/>
+                                                <rect key="frame" x="8" y="52" width="344" height="24"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="white"/>
                                                 <nil key="highlightedColor"/>
