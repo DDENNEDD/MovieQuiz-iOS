@@ -136,7 +136,7 @@ final class MovieQuizViewController: UIViewController {
             self.showNextQuestionOrResults()
         }
     }
-    
+
         private func showNextQuestionOrResults() {
             if currentQuestionIndex == questions.count - 1 {
                 let text = "Ваш результат: \(correctAnswers) из 10"
