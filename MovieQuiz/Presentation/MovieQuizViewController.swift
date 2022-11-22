@@ -24,11 +24,9 @@ final class MovieQuizViewController: UIViewController {
 
     }
 
-//начальный экран
     override func viewDidLoad() {
         super.viewDidLoad()
-    self.show(quiz: convert(model: questions[currentQuestionIndex]))
-        //    show(quiz: convert(model: questions[currentQuestionIndex]))
+        self.show(quiz: convert(model: questions[currentQuestionIndex]))
     }
 
     private struct QuizStepViewModel {
@@ -93,7 +91,6 @@ final class MovieQuizViewController: UIViewController {
                 correctAnswer: true)
     ]
 
-//функция конвертации MOK-данных во ViewModel исходя из значения currentQuestionIndex
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
                 image: UIImage(named: model.image) ?? UIImage(),
@@ -101,15 +98,12 @@ final class MovieQuizViewController: UIViewController {
                 questionNumber: "\(currentQuestionIndex + 1)/\(questions.count)")
     }
 
-
-//функция формирования окна показа текущего вопроса на основе ViewModel
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 0
-        //imageView.layer.borderColor = UIColor.ypBlack.cgColor
     }
 
 
@@ -129,8 +123,6 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-
-
     private func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
@@ -144,9 +136,7 @@ final class MovieQuizViewController: UIViewController {
             self.showNextQuestionOrResults()
         }
     }
-
-
-
+    
         private func showNextQuestionOrResults() {
             if currentQuestionIndex == questions.count - 1 {
                 let text = "Ваш результат: \(correctAnswers) из 10"
