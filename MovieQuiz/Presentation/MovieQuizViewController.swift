@@ -17,14 +17,12 @@ final class MovieQuizViewController: UIViewController {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = true
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-
     }
 
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-
     }
 
     override func viewDidLoad() {
@@ -79,19 +77,19 @@ final class MovieQuizViewController: UIViewController {
         QuizQuestion(
                 image: "Old",
                 text: "Рейтинг этого фильма больше чем 6?",
-                correctAnswer: true),
+                correctAnswer: false),
         QuizQuestion(
                 image: "The Ice Age Adventures of Buck Wild",
                 text: "Рейтинг этого фильма больше чем 6?",
-                correctAnswer: true),
+                correctAnswer: false),
         QuizQuestion(
                 image: "Tesla",
                 text: "Рейтинг этого фильма больше чем 6?",
-                correctAnswer: true),
+                correctAnswer: false),
         QuizQuestion(
                 image: "Vivarium",
                 text: "Рейтинг этого фильма больше чем 6?",
-                correctAnswer: true)
+                correctAnswer: false)
     ]
 
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
@@ -110,7 +108,6 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.borderColor = nil
         YesButton.isEnabled = true
         NoButton.isEnabled = true
-        
     }
 
     private func show(quiz result: QuizResultsViewModel) {
@@ -138,7 +135,6 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         YesButton.isEnabled = false
         NoButton.isEnabled = false
-       
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
         }
@@ -153,7 +149,6 @@ final class MovieQuizViewController: UIViewController {
                         buttonText: "Сыграть ещё раз")
                 show(quiz: viewModel)
                 correctAnswers = 0
-
             } else {
                 currentQuestionIndex += 1
                 let nextQuestion = questions[currentQuestionIndex]
