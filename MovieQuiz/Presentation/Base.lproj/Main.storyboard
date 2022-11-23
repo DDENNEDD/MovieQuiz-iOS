@@ -47,7 +47,7 @@
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2DK-Vn-J9B" userLabel="Preview Image">
                                         <rect key="frame" x="0.0" y="43.5" width="374" height="561"/>
-                                        <color key="backgroundColor" name="white"/>
+                                        <color key="backgroundColor" name="background"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="2DK-Vn-J9B" secondAttribute="height" multiplier="2:3" id="CUT-bv-zBf"/>
                                         </constraints>
@@ -69,9 +69,9 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="hyc-G2-fRV" firstAttribute="leading" secondItem="w39-hE-Xq0" secondAttribute="leading" constant="42" id="5cl-C0-V7b"/>
-                                            <constraint firstAttribute="bottom" secondItem="hyc-G2-fRV" secondAttribute="bottom" constant="13" id="RJ1-kk-sIG"/>
+                                            <constraint firstAttribute="bottom" secondItem="hyc-G2-fRV" secondAttribute="bottom" id="RJ1-kk-sIG"/>
                                             <constraint firstAttribute="trailing" secondItem="hyc-G2-fRV" secondAttribute="trailing" constant="42" id="lHD-iX-zVK"/>
-                                            <constraint firstItem="hyc-G2-fRV" firstAttribute="top" secondItem="w39-hE-Xq0" secondAttribute="top" constant="13" id="tTW-p0-6dU"/>
+                                            <constraint firstItem="hyc-G2-fRV" firstAttribute="top" secondItem="w39-hE-Xq0" secondAttribute="top" id="tTW-p0-6dU"/>
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nMU-hD-NwX" userLabel="Stack View 2">
@@ -83,7 +83,7 @@
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="НЕТ">
+                                                <state key="normal" title="Нет">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -101,7 +101,7 @@
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="ДА">
+                                                <state key="normal" title="Да">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -122,14 +122,17 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="black"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZJG-jr-Txf" secondAttribute="trailing" constant="20" id="6NQ-By-11I"/>
                             <constraint firstItem="ZJG-jr-Txf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="7jc-9Q-ePM"/>
                             <constraint firstItem="ZJG-jr-Txf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cvz-GU-czL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZJG-jr-Txf" secondAttribute="bottom" constant="10" id="iVJ-59-jce"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="NoButton" destination="3Qo-od-uBx" id="hSJ-EN-sM2"/>
+                        <outlet property="YesButton" destination="wgB-qv-6Gt" id="4To-fQ-1bY"/>
                         <outlet property="counterLabel" destination="lra-eo-jfH" id="tJO-BE-iIM"/>
                         <outlet property="imageView" destination="2DK-Vn-J9B" id="bNI-n4-RtV"/>
                         <outlet property="textLabel" destination="hyc-G2-fRV" id="70a-iu-23y"/>
@@ -141,6 +144,12 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="background">
+            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="black">
+            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="white">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
