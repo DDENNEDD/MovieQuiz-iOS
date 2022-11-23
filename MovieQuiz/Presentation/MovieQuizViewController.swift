@@ -104,9 +104,8 @@ final class MovieQuizViewController: UIViewController {
         counterLabel.text = step.questionNumber
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 0
+        imageView.layer.borderColor = nil
     }
-
-
 
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
