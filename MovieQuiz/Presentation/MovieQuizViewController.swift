@@ -13,11 +13,14 @@ final class MovieQuizViewController: UIViewController {
     
     private var currentQuestionIndex: Int = 0
     private var correctAnswers: Int = 0
-    
     private let questionsAmount: Int = 10
     private let questionFactory: QuestionFactory = QuestionFactory()
     private var currentQuestion: QuizQuestion?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.show(quiz: convert(model: questions[currentQuestionIndex]))
+    }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
@@ -31,10 +34,7 @@ final class MovieQuizViewController: UIViewController {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.show(quiz: convert(model: questions[currentQuestionIndex]))
-    }
+    
 
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
