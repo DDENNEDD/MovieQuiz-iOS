@@ -14,7 +14,9 @@ final class MovieQuizViewController: UIViewController {
     private let questionsAmount: Int = 10
     private let questionFactory: QuestionFactoryProtocol = QuestionFactory()
     private var currentQuestion: QuizQuestion?
+    private var firstQuestion = 0
     
+    //MARK: функция viewDidLoad (первый экран)
     override func viewDidLoad() {
         super.viewDidLoad()
         if let firstQuestion = questionFactory.requestNextQuestion() {
@@ -24,6 +26,7 @@ final class MovieQuizViewController: UIViewController {
         }
     }
     
+    //MARK: нажатие кнопки Да
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
         guard let currentQuestion = currentQuestion else {
@@ -34,6 +37,7 @@ final class MovieQuizViewController: UIViewController {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
 
+    //MARK: нажатие кнопки Нет
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         
         guard let currentQuestion = currentQuestion else {
@@ -44,6 +48,7 @@ final class MovieQuizViewController: UIViewController {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
 
+    //MARK: функция конвертации MOK -> QuizStepViewModel
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
             image: UIImage(named: model.image) ?? UIImage(),
@@ -51,6 +56,7 @@ final class MovieQuizViewController: UIViewController {
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
 
+    //MARK: функция вывода вопросов на экране
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
         textLabel.text = step.question
@@ -62,6 +68,7 @@ final class MovieQuizViewController: UIViewController {
         NoButton.isEnabled = true
     }
 
+    //MARK: функция вывода результата квиза
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
                 title: result.title,
@@ -81,6 +88,7 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    //MARK: функция вывода результата ответа
     private func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
@@ -98,6 +106,7 @@ final class MovieQuizViewController: UIViewController {
         }
     }
 
+    //MARK: функция вывода следующего вопросв или результата квиза
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
             let text = correctAnswers == questionsAmount ?
