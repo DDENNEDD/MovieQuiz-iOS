@@ -26,7 +26,6 @@ final class MovieQuizViewController: UIViewController {
         }
     }
     
-    
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
         guard let currentQuestion = currentQuestion else {
@@ -36,7 +35,6 @@ final class MovieQuizViewController: UIViewController {
         let givenAnswer = true
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
-    
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         
@@ -48,18 +46,12 @@ final class MovieQuizViewController: UIViewController {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-    
-    
-    
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
             image: UIImage(named: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
-    
-    
-    
     
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -71,9 +63,6 @@ final class MovieQuizViewController: UIViewController {
         YesButton.isEnabled = true
         NoButton.isEnabled = true
     }
-    
-    
-    
     
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
@@ -94,10 +83,6 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
-    
-    
     private func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
@@ -114,9 +99,6 @@ final class MovieQuizViewController: UIViewController {
             self.showNextQuestionOrResults()
         }
     }
-    
-    
-    
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
@@ -138,8 +120,6 @@ final class MovieQuizViewController: UIViewController {
             }
         }
     }
-    
-    
 }
 
 
