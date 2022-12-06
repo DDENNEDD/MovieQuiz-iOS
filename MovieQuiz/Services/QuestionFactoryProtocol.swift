@@ -2,5 +2,6 @@ import Foundation
 
 
 protocol QuestionFactoryProtocol {
-    func requestNextQuestion() -> QuizQuestion?
+    var delegate: MovieQuizViewController { get set }
+    func requestNextQuestion()
 }
