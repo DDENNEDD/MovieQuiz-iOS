@@ -1,8 +1,9 @@
 import Foundation
 
 
-struct AlertPresenter {
+struct AlertModel {
     let title: String
     let message: String
     let buttonText: String
+    var complection:() -> Void
 }
