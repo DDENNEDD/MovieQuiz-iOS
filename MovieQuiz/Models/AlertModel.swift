@@ -1,8 +1,8 @@
 import Foundation
 
 
-struct QuizResultsViewModel {
+struct AlertPresenter {
     let title: String
-    let text: String
+    let message: String
     let buttonText: String
 }

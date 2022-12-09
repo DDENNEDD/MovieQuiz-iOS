@@ -1,6 +1,6 @@
 import Foundation
 
-class QuestionFactory: QuestionFactoryProtocol {
+final class QuestionFactory: QuestionFactoryProtocol {
     var delegate: MovieQuizViewController
     
         
@@ -8,8 +8,6 @@ class QuestionFactory: QuestionFactoryProtocol {
         self.delegate = delegate as! MovieQuizViewController
     }
   
-   // weak var delegate: QuestionFactoryDelegate?
-    
     private let questions: [QuizQuestion] = [
         QuizQuestion(
             image: "The Godfather",
