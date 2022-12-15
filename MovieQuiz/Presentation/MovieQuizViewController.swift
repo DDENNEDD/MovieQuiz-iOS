@@ -44,10 +44,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+        QuizStepViewModel(
+                image: UIImage(named: model.image) ?? UIImage(),
+                question: model.text,
+                questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
     
     private func show(quiz step: QuizStepViewModel) {
@@ -91,7 +91,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.questionFactory?.requestNextQuestion()
         }
         alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -108,7 +108,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             correctAnswers = 0
         } else {
             currentQuestionIndex += 1
-            self.questionFactory?.requestNextQuestion()
+            questionFactory?.requestNextQuestion()
         }
     }
     
