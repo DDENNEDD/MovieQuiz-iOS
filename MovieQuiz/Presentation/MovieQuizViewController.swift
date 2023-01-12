@@ -114,11 +114,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     
     
-    
-    
-    
-    
-    
     func didRecieveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
             return
