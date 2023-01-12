@@ -1,7 +1,7 @@
 import UIKit
 
 
-struct AlertPresenter {
+final class AlertPresenter {
     
     weak var viewController: UIViewController?
     init(viewController: UIViewController?) {
@@ -15,7 +15,6 @@ struct AlertPresenter {
             preferredStyle: .alert)
         let action: UIAlertAction = UIAlertAction(title: alertModel.buttonText, style: .default) 
         alert.addAction(action)
-        
         viewController?.present(alert, animated: true, completion: nil)
     }
 }
