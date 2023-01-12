@@ -13,12 +13,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol? = nil
     private var currentQuestion: QuizQuestion?
+    private var alertPresenter: AlertPresenter?
     private var firstQuestion = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         questionFactory = QuestionFactory (delegate: self)
+        alertPresenter = AlertPresenter(viewController: self)
         //questionFactory?.delegate = self
         questionFactory?.requestNextQuestion()
     }
@@ -96,21 +98,25 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private func showNextQuestionOrResults() {
-        if currentQuestionIndex == questionsAmount - 1 {
-            let text = correctAnswers == questionsAmount ?
-            "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
-            let viewModel = QuizResultsViewModel(
-                title: "Этот раунд окончен!",
-                text: text,
-                buttonText: "Сыграть ещё раз")
-            show(quiz: viewModel)
-            correctAnswers = 0
-        } else {
-            currentQuestionIndex += 1
-            questionFactory?.requestNextQuestion()
+            if currentQuestionIndex == questionsAmount - 1 {
+                 
+                let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)"
+                let viewModel = QuizResultsViewModel(
+                    title: "Этот раунд окончен!",
+                    text: text,
+                    buttonText: "Сыграть еще раз")
+                
+                show(quiz: viewModel)
+            } else {
+                currentQuestionIndex += 1
+                questionFactory?.requestNextQuestion()
+            }
         }
-    }
+    
+    
+    
+    
+    
     
     
     func didRecieveNextQuestion(question: QuizQuestion?) {
