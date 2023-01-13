@@ -8,12 +8,12 @@ protocol StatisticService {
     var bestGame: GameRecord { get }
     
     func store(correct count: Int, total amount: Int)
-      
+    
 }
 
 
 final class StatisticServiceImplementation: StatisticService {
-      
+    
     private let userDefaults = UserDefaults.standard
     private enum Keys: String {case correct, total, bestGame, gamesCount}
     
@@ -41,7 +41,6 @@ final class StatisticServiceImplementation: StatisticService {
             guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
                   let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
                 return .init(correct: 0, total: 0, date: Date())
-              
             }
             
             return record
@@ -59,18 +58,22 @@ final class StatisticServiceImplementation: StatisticService {
     
     
     func store(correct count: Int, total amount: Int) {
-        let gameResult = GameRecord(correct: count, total: amount, date: Date())
-                if bestGame < gameResult {
-                    bestGame = gameResult
-                }
+        let gameResult = GameRecord(
+            correct: count,
+            total: amount,
+            date: Date()
+        )
+        if bestGame < gameResult {
+            bestGame = gameResult
+        }
         var correctCount = userDefaults.integer(forKey: Keys.correct.rawValue)
         var totalAmount = userDefaults.integer(forKey: Keys.total.rawValue)
-                correctCount += count
-                totalAmount += amount
-                userDefaults.set(correctCount, forKey: Keys.correct.rawValue)
-                userDefaults.set(totalAmount, forKey: Keys.total.rawValue)
-                gamesCount += 1
+        correctCount += count
+        totalAmount += amount
+        userDefaults.set(correctCount, forKey: Keys.correct.rawValue)
+        userDefaults.set(totalAmount, forKey: Keys.total.rawValue)
+        gamesCount += 1
         
     }
-
+    
 }
