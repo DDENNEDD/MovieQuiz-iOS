@@ -2,11 +2,13 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
+    
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet weak var YesButton: UIButton!
     @IBOutlet weak var NoButton: UIButton!
+    
     
     private var currentQuestionIndex: Int = 0
     private var correctAnswers: Int = 0
@@ -14,6 +16,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionFactory: QuestionFactoryProtocol? = nil
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenter?
+    private var statisticService: StatisticService?
     private var firstQuestion = 0
     
     
@@ -21,9 +24,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         super.viewDidLoad()
         questionFactory = QuestionFactory (delegate: self)
         alertPresenter = AlertPresenter(viewController: self)
-        //questionFactory?.delegate = self
         questionFactory?.requestNextQuestion()
+        statisticService = StatisticServiceImplementation()
+                 
     }
+    
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
@@ -35,6 +40,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
+    
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         
         guard let currentQuestion = currentQuestion else {
@@ -45,12 +51,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
+    
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
                 image: UIImage(named: model.image) ?? UIImage(),
                 question: model.text,
                 questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
+    
     
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -90,6 +98,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
             guard let self = self else {return}
             self.currentQuestionIndex = 0
+            self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }
         alert.addAction(action)
@@ -99,19 +108,24 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private func showNextQuestionOrResults() {
             if currentQuestionIndex == questionsAmount - 1 {
-                 
-                let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)"
+                guard let statisticService = statisticService else { return }
+                statisticService.store(correct: correctAnswers, total: questionsAmount)
+                let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)" +
+                            "\nКоличество сыгранных квизов: \(statisticService.gamesCount)" +
+                            "\nРекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) \(statisticService.bestGame.date.dateTimeString)" +
+                            "\nСредняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
                 let viewModel = QuizResultsViewModel(
                     title: "Этот раунд окончен!",
                     text: text,
                     buttonText: "Сыграть еще раз")
-                
                 show(quiz: viewModel)
             } else {
                 currentQuestionIndex += 1
                 questionFactory?.requestNextQuestion()
             }
         }
+    
+    
     
     
     func didRecieveNextQuestion(question: QuizQuestion?) {
@@ -126,6 +140,4 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
 }
-
-
 

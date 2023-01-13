@@ -23,6 +23,8 @@
 		BF646EAA2938027C0097D110 /* QuizQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF646EA92938027B0097D110 /* QuizQuestion.swift */; };
 		BF84B17B292996D2002E61C5 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFFAE4692924541B00CB0D4E /* YS Display-Bold.ttf */; };
 		BF84B17C292996D6002E61C5 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFFAE46A2924541B00CB0D4E /* YS Display-Medium.ttf */; };
+		BFB89DB12970733700D3D673 /* StatisticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB89DB02970733700D3D673 /* StatisticService.swift */; };
+		BFB89DB32970751600D3D673 /* GameRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB89DB22970751600D3D673 /* GameRecord.swift */; };
 		BFB93084293FD9FB007462AB /* QuestionFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB93083293FD9FB007462AB /* QuestionFactoryDelegate.swift */; };
 		BFC038202941449E00E5889D /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC0381F2941449E00E5889D /* AlertModel.swift */; };
 		BFC038222941457F00E5889D /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC038212941457F00E5889D /* AlertPresenter.swift */; };
@@ -45,6 +47,8 @@
 		BF646EA52938024F0097D110 /* QuizStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStepViewModel.swift; sourceTree = "<group>"; };
 		BF646EA7293802670097D110 /* QuizResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultsViewModel.swift; sourceTree = "<group>"; };
 		BF646EA92938027B0097D110 /* QuizQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestion.swift; sourceTree = "<group>"; };
+		BFB89DB02970733700D3D673 /* StatisticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticService.swift; sourceTree = "<group>"; };
+		BFB89DB22970751600D3D673 /* GameRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRecord.swift; sourceTree = "<group>"; };
 		BFB93083293FD9FB007462AB /* QuestionFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryDelegate.swift; sourceTree = "<group>"; };
 		BFC0381F2941449E00E5889D /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		BFC038212941457F00E5889D /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				BF646EA22937A38F0097D110 /* QuestionsFactory.swift */,
 				5CB02B8F5332C3B4E729CA03 /* QuestionFactoryProtocol.swift */,
 				BFB93083293FD9FB007462AB /* QuestionFactoryDelegate.swift */,
+				BFB89DB02970733700D3D673 /* StatisticService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -141,6 +146,7 @@
 				BF646EA7293802670097D110 /* QuizResultsViewModel.swift */,
 				BF646EA92938027B0097D110 /* QuizQuestion.swift */,
 				BFC0381F2941449E00E5889D /* AlertModel.swift */,
+				BFB89DB22970751600D3D673 /* GameRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,9 +260,11 @@
 				BFC038222941457F00E5889D /* AlertPresenter.swift in Sources */,
 				BFC038202941449E00E5889D /* AlertModel.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				BFB89DB32970751600D3D673 /* GameRecord.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				BFB93084293FD9FB007462AB /* QuestionFactoryDelegate.swift in Sources */,
 				BF646EA62938024F0097D110 /* QuizStepViewModel.swift in Sources */,
+				BFB89DB12970733700D3D673 /* StatisticService.swift in Sources */,
 				BF646EAA2938027C0097D110 /* QuizQuestion.swift in Sources */,
 				BF646EA32937A38F0097D110 /* QuestionsFactory.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
