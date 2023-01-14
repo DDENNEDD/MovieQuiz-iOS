@@ -1,14 +1,13 @@
 import Foundation
 
-class QuestionFactory: QuestionFactoryProtocol {
-    var delegate: MovieQuizViewController
+
+final class QuestionFactory: QuestionFactoryProtocol {
     
-        
-    init(delegate: QuestionFactoryDelegate) {
-        self.delegate = delegate as! MovieQuizViewController
+    weak var delegate: QuestionFactoryDelegate?
+    
+    init(delegate: QuestionFactoryDelegate?) {
+        self.delegate = delegate
     }
-  
-   // weak var delegate: QuestionFactoryDelegate?
     
     private let questions: [QuizQuestion] = [
         QuizQuestion(
@@ -51,19 +50,15 @@ class QuestionFactory: QuestionFactoryProtocol {
             image: "Vivarium",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: false)
-]
+    ]
     
     func requestNextQuestion() {
         guard let index = (0..<questions.count).randomElement() else {
-            delegate.didRecieveNextQuestion(question: nil)
+            delegate?.didRecieveNextQuestion(question: nil)
             return
         }
         
         let question = questions[safe: index]
-        delegate.didRecieveNextQuestion(question: question)
+        delegate?.didRecieveNextQuestion(question: question)
     }
-    
-    
-    
-    
 }
