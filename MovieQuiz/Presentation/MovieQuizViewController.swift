@@ -142,6 +142,27 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.startAnimating()
     }
     
+    private func hideLoadingIndicator() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+    }
     
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        let title = "Ошибка"
+        let buttonText = "Попробовать ещё раз"
+        let model = AlertModel(title: title,
+                               message: message,
+                               buttonText: buttonText) { [weak self] in
+            guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            self.questionFactory?.requestNextQuestion()
+        }
+        
+        alertPresenter?.show(alertModel: model)
+    }
 }
 
