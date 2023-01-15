@@ -16,7 +16,6 @@ final class StatisticServiceImplementation: StatisticService {
     
     private let userDefaults = UserDefaults.standard
     private enum Keys: String {case correct, total, bestGame, gamesCount}
-    
     var totalAccuracy: Double {
         get {
             if userDefaults.integer(forKey: Keys.total.rawValue) != 0 {
@@ -42,16 +41,13 @@ final class StatisticServiceImplementation: StatisticService {
                   let record = try? JSONDecoder().decode(GameRecord.self, from: data) else {
                 return .init(correct: 0, total: 0, date: Date())
             }
-            
             return record
         }
         set {
             guard let data = try? JSONEncoder().encode(newValue) else {
                 print("Невозможно сохранить результат")
-                
                 return
             }
-            
             userDefaults.set(data, forKey: Keys.bestGame.rawValue)
         }
     }
