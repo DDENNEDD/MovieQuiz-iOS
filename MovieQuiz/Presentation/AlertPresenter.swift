@@ -15,7 +15,7 @@ class AlertPresenter {
             message: alertModel.message,
             preferredStyle: .alert)
         let action = UIAlertAction(title: alertModel.buttonText, style: .default) { _ in
-            alertModel.complection()
+            alertModel.completion()
         }
         alert.addAction(action)
         viewController?.present(alert, animated: true, completion: nil)

@@ -34,7 +34,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        
+        showLoadingIndicator()
         guard let currentQuestion = currentQuestion else {
             return
         }
@@ -45,7 +45,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        
+        showLoadingIndicator()
         guard let currentQuestion = currentQuestion else {
             return
         }
@@ -94,7 +94,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private func show(quiz result: QuizResultsViewModel) {
-        alertPresenter?.show(alertModel: AlertModel(title: result.title, message: result.text, buttonText: result.buttonText, complection: { [weak self] in
+        alertPresenter?.show(alertModel: AlertModel(title: result.title, message: result.text, buttonText: result.buttonText, completion: { [weak self] in
             guard let self = self else { return }
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
@@ -104,6 +104,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private func showNextQuestionOrResults() {
+        hideLoadingIndicator()
         guard currentQuestionIndex == questionsAmount - 1  else {
             currentQuestionIndex += 1
             questionFactory?.requestNextQuestion()
@@ -149,6 +150,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.isHidden = true
     }
     
+    
     private func showNetworkError(message: String) {
         hideLoadingIndicator()
         let title = "Ошибка"
@@ -157,19 +159,20 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                                message: message,
                                buttonText: buttonText) { [weak self] in
             guard let self = self else { return }
-            
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            
             self.questionFactory?.requestNextQuestion()
         }
-        
         alertPresenter?.show(alertModel: model)
+        questionFactory?.loadData()
+        showLoadingIndicator()
     }
+    
     
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
+    
     
     func didLoadDataFromServer() {
         activityIndicator.isHidden = true
