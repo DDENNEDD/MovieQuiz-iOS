@@ -11,6 +11,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
+    private let presenter = MovieQuizPresenter()
+    
+    
+    
     private var currentQuestionIndex: Int = 0
     private var correctAnswers: Int = 0
     private let questionsAmount: Int = 10
@@ -54,14 +58,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-    
+    /*
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
-    
+    */
     
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -133,7 +137,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             return
         }
         currentQuestion = question
-        let viewModel = convert(model: question)
+        let viewModel = presenter.convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
