@@ -125,8 +125,8 @@
                                 </subviews>
                                 <color key="backgroundColor" name="black"/>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="chs-gT-yUp">
-                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="chs-gT-yUp">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
