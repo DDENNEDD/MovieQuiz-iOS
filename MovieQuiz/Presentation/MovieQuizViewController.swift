@@ -3,6 +3,10 @@ import UIKit
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
+    
+    
+    
+    
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
@@ -12,13 +16,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private let presenter = MovieQuizPresenter()
-    
-    
-    
-    //private var currentQuestionIndex: Int = 0
-    //private let questionsAmount: Int = 10
     private var correctAnswers: Int = 0
-    
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenter?
@@ -43,14 +41,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showLoadingIndicator()
         presenter.currentQuestion = currentQuestion
         presenter.yesButtonClicked()
-        /*
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        
-        let givenAnswer = true
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-         */
+       
     }
     
     
@@ -58,24 +49,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showLoadingIndicator()
         presenter.currentQuestion = currentQuestion
         presenter.noButtonClicked()
-        /*
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
         
-        let givenAnswer = false
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-         */
     }
     
-    /*
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        QuizStepViewModel(
-            image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-    }
-    */
+ 
     
     func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -141,18 +118,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         show(quiz: viewModel)
     }
     
-    
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-            return
-        }
-        currentQuestion = question
-        let viewModel = presenter.convert(model: question)
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
-        }
+        presenter.didRecieveNextQuestion(question: question)
     }
     
+
     
     private func showLoadingIndicator() {
         activityIndicator.isHidden = false
