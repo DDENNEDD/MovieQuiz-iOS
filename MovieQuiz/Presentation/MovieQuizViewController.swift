@@ -58,7 +58,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         
         alert.addAction(action)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {
