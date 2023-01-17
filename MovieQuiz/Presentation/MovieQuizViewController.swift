@@ -3,10 +3,6 @@ import UIKit
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
-    
-    
-    
-    
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
@@ -40,7 +36,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         showLoadingIndicator()
         presenter.yesButtonClicked()
-       
+        
     }
     
     
@@ -50,7 +46,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
     }
     
- 
     
     func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -76,14 +71,30 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         NoButton.isEnabled = false
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else {return}
-            self.showNextQuestionOrResults()
+            guard let self = self else { return }
+            self.presenter.correctAnswers = self.correctAnswers
+            self.presenter.questionFactory = self.questionFactory
+            self.presenter.showNextQuestionOrResults()
+            self.hideLoadingIndicator()
         }
     }
     
-    
-    private func show(quiz result: QuizResultsViewModel) {
-        alertPresenter?.show(alertModel: AlertModel(title: result.title, message: result.text, buttonText: result.buttonText, completion: { [weak self] in
+    func show(quiz result: QuizResultsViewModel) {
+        
+        var message = ""
+        if let statisticService = statisticService {
+            statisticService.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
+            //let title = "Этот раунд окончен!"
+            //let buttonText = "Сыграть ещё раз"
+            let text = """
+                                    Ваш результат: \(correctAnswers)/\(presenter.questionsAmount)
+                                    Количество сыгранных квизов: \(statisticService.gamesCount)
+                                    Рекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(statisticService.bestGame.date.dateTimeString))
+                                    Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
+                                    """
+            message = text
+        }
+        alertPresenter?.show(alertModel: AlertModel(title: result.title, message: message, buttonText: result.buttonText, completion: { [weak self] in
             guard let self = self else { return }
             self.presenter.resetQuestionIndex()
             self.correctAnswers = 0
@@ -92,35 +103,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
-    private func showNextQuestionOrResults() {
-        hideLoadingIndicator()
-        guard presenter.isLastQuestion() == true else {
-            self.presenter.switchToNextQuestion()
-            self.questionFactory?.requestNextQuestion()
-            return
-        }
-        guard let statisticService = statisticService else { return }
-        statisticService.store(correct: correctAnswers, total: presenter.questionsAmount)
-        let title = "Этот раунд окончен!"
-        let buttonText = "Сыграть ещё раз"
-        let text = """
-                            Ваш результат: \(correctAnswers)/\(presenter.questionsAmount)
-                            Количество сыгранных квизов: \(statisticService.gamesCount)
-                            Рекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(statisticService.bestGame.date.dateTimeString))
-                            Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
-                            """
-        let viewModel = QuizResultsViewModel(
-            title: title,
-            text: text,
-            buttonText: buttonText)
-        show(quiz: viewModel)
-    }
-    
     func didReceiveNextQuestion(question: QuizQuestion?) {
         presenter.didRecieveNextQuestion(question: question)
     }
     
-
+    
     
     private func showLoadingIndicator() {
         activityIndicator.isHidden = false

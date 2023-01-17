@@ -4,9 +4,11 @@ import UIKit
 final class MovieQuizPresenter {
     
     let questionsAmount: Int = 10
-    private var currentQuestionIndex: Int = 0
+    var correctAnswers: Int = 0
+    var currentQuestionIndex: Int = 0
     var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
+    var questionFactory: QuestionFactoryProtocol?
     
     
     func yesButtonClicked() {
@@ -62,7 +64,20 @@ final class MovieQuizPresenter {
     }
     
     
-    
+    func showNextQuestionOrResults() {
+            if self.isLastQuestion() {
+                let text = "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
+                
+                let viewModel = QuizResultsViewModel(
+                    title: "Этот раунд окончен!",
+                    text: text,
+                    buttonText: "Сыграть ещё раз")
+                    viewController?.show(quiz: viewModel)
+            } else {
+                self.switchToNextQuestion()
+                questionFactory?.requestNextQuestion()
+            }
+        }
     
     
     
