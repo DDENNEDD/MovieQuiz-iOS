@@ -10,32 +10,22 @@ final class MovieQuizPresenter {
     
     
     func yesButtonClicked() {
-            guard let currentQuestion = currentQuestion else {
-                return
-            }
-            
-            let givenAnswer = true
-            
-            viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-        }
+        didAnswer(isYes: true)
+    }
     
     func noButtonClicked() {
-            guard let currentQuestion = currentQuestion else {
-                return
-            }
-            
-            let givenAnswer = false
-            
-            viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        didAnswer(isYes: false)
+    }
+    
+    private func didAnswer(isYes: Bool) {
+        guard let currentQuestion = currentQuestion else {
+            return
         }
-    
-    
-    
-    
-    
-    
-    
-    
+        
+        let givenAnswer = isYes
+        
+        viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+    }
     
     
     func convert(model: QuizQuestion) -> QuizStepViewModel {
@@ -57,5 +47,5 @@ final class MovieQuizPresenter {
     
     func switchToNextQuestion() {
         currentQuestionIndex += 1
-    } 
+    }
 }
