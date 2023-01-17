@@ -19,7 +19,7 @@ final class MovieQuizPresenter {
         didAnswer(isYes: false)
     }
     
-    private func didAnswer(isYes: Bool) {
+    func didAnswer(isYes: Bool) {
         guard let currentQuestion = currentQuestion else {
             return
         }
@@ -29,7 +29,7 @@ final class MovieQuizPresenter {
         viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-    
+       
     func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
             image: UIImage(data: model.image) ?? UIImage(),
@@ -43,8 +43,9 @@ final class MovieQuizPresenter {
         currentQuestionIndex == questionsAmount - 1
     }
     
-    func resetQuestionIndex() {
+    func restartGame() {
         currentQuestionIndex = 0
+        correctAnswers = 0
     }
     
     func switchToNextQuestion() {
@@ -67,7 +68,6 @@ final class MovieQuizPresenter {
     func showNextQuestionOrResults() {
             if self.isLastQuestion() {
                 let text = "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
-                
                 let viewModel = QuizResultsViewModel(
                     title: "Этот раунд окончен!",
                     text: text,

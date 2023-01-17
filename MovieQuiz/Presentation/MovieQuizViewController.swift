@@ -12,7 +12,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private let presenter = MovieQuizPresenter()
-    private var correctAnswers: Int = 0
+    //private var correctAnswers: Int = 0
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenter?
@@ -61,7 +61,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
-            correctAnswers += 1
+            presenter.correctAnswers += 1
         }
         
         imageView.layer.masksToBounds = true
@@ -72,7 +72,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
-            self.presenter.correctAnswers = self.correctAnswers
             self.presenter.questionFactory = self.questionFactory
             self.presenter.showNextQuestionOrResults()
             self.hideLoadingIndicator()
@@ -85,7 +84,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if let statisticService = statisticService {
             statisticService.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
             let text = """
-                                    Ваш результат: \(correctAnswers)/\(presenter.questionsAmount)
+                                    Ваш результат: \(presenter.correctAnswers)/\(presenter.questionsAmount)
                                     Количество сыгранных квизов: \(statisticService.gamesCount)
                                     Рекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(statisticService.bestGame.date.dateTimeString))
                                     Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
@@ -94,8 +93,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         alertPresenter?.show(alertModel: AlertModel(title: result.title, message: message, buttonText: result.buttonText, completion: { [weak self] in
             guard let self = self else { return }
-            self.presenter.resetQuestionIndex()
-            self.correctAnswers = 0
+            self.presenter.restartGame()
+            self.presenter.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }))
     }
@@ -126,8 +125,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                                message: message,
                                buttonText: buttonText) { [weak self] in
             guard let self = self else { return }
-            self.presenter.resetQuestionIndex()
-            self.correctAnswers = 0
+            self.presenter.restartGame()
+            self.presenter.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }
         alertPresenter?.show(alertModel: model)
