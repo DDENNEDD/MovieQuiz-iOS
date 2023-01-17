@@ -3,7 +3,7 @@ import UIKit
 
 final class MovieQuizPresenter {
     
-    private let questionsAmount: Int = 10
+    let questionsAmount: Int = 10
     private var currentQuestionIndex: Int = 0
     
     
@@ -16,7 +16,17 @@ final class MovieQuizPresenter {
         }
     
     
-    
+    func isLastQuestion() -> Bool {
+            currentQuestionIndex == questionsAmount - 1
+        }
+        
+        func resetQuestionIndex() {
+            currentQuestionIndex = 0
+        }
+        
+        func switchToNextQuestion() {
+            currentQuestionIndex += 1
+        }
     
     
     
