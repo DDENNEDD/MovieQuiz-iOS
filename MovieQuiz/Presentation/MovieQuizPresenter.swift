@@ -37,8 +37,8 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
 
     
     func didFailToLoadData(with error: Error) {
-        let message = error.localizedDescription
-        viewController?.showNetworkError(message: message)
+        let errorMessage = error.localizedDescription
+        viewController?.showNetworkError(message: errorMessage)
     }
 
     

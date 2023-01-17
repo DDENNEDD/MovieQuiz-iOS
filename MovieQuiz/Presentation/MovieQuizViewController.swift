@@ -10,10 +10,12 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet private var noButton: UIButton!
     
     private var presenter: MovieQuizPresenter!
+    private var alertPresenter: AlertPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = MovieQuizPresenter(viewController: self)
+        alertPresenter = AlertPresenter(viewController: self)
     }
     
     
@@ -43,22 +45,10 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     func show(quiz result: QuizResultsViewModel) {
         let message = presenter.resultMessage()
-        
-        let alert = UIAlertController(
-            title: result.title,
-            message: message,
-            preferredStyle: .alert)
-        alert.view.accessibilityIdentifier = "Game Results"
-        
-        let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
+        alertPresenter?.show(alertModel: AlertModel(title: result.title, message: message, buttonText: result.buttonText, completion: { [weak self] in
             guard let self = self else { return }
-            
             self.presenter.restartGame()
-        }
-        
-        alert.addAction(action)
-        
-        present(alert, animated: true, completion: nil)
+        }))
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {
@@ -78,19 +68,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     func showNetworkError(message: String) {
         hideLoadingIndicator()
-        let alert = UIAlertController(
-            title: "Ошибка",
-            message: message,
-            preferredStyle: .alert)
-        alert.view.accessibilityIdentifier = "Network Error"
-        
-        let action = UIAlertAction(title: "Попробовать ещё раз",
-                                   style: .default) { [weak self] _ in
+        let title = "Error"
+        let buttonText = "OK"
+        alertPresenter?.show(alertModel: AlertModel(title: title, message: message, buttonText: buttonText, completion: { [weak self] in
             guard let self = self else { return }
-            
-            self.presenter.restartGame()
-        }
+            self.viewDidLoad()
+            self.showLoadingIndicator()
+        }))
         
-        alert.addAction(action)
     }
+    
 }
