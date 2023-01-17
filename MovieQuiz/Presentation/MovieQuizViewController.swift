@@ -81,11 +81,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     func show(quiz result: QuizResultsViewModel) {
         
-        var message = ""
+        var message = result.text
         if let statisticService = statisticService {
             statisticService.store(correct: presenter.correctAnswers, total: presenter.questionsAmount)
-            //let title = "Этот раунд окончен!"
-            //let buttonText = "Сыграть ещё раз"
             let text = """
                                     Ваш результат: \(correctAnswers)/\(presenter.questionsAmount)
                                     Количество сыгранных квизов: \(statisticService.gamesCount)
