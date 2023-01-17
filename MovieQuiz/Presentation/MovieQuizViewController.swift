@@ -39,7 +39,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         showLoadingIndicator()
-        presenter.currentQuestion = currentQuestion
         presenter.yesButtonClicked()
        
     }
@@ -47,7 +46,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         showLoadingIndicator()
-        presenter.currentQuestion = currentQuestion
         presenter.noButtonClicked()
         
     }
