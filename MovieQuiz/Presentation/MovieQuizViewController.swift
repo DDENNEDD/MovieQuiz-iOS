@@ -43,10 +43,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     func show(quiz result: QuizResultsViewModel) {
         let message = presenter.resultMessage()
-        alertPresenter?.show(alertModel: AlertModel(title: result.title, message: message, buttonText: result.buttonText, completion: { [weak self] in
-            guard let self = self else { return }
-            self.presenter.restartGame()
-        }))
+        alertPresenter?.show(alertModel: AlertModel(
+            title: result.title,
+            message: message,
+            buttonText: result.buttonText,
+            completion: { [weak self] in
+                guard let self = self else { return }
+                self.presenter.restartGame()
+            }))
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {
@@ -68,10 +72,14 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         hideLoadingIndicator()
         let title = "Ошибка!\n"
         let buttonText = "Попробовать ещё раз"
-        alertPresenter?.show(alertModel: AlertModel(title: title, message: message, buttonText: buttonText, completion: { [weak self] in
-            guard let self = self else { return }
-            self.viewDidLoad()
-            self.showLoadingIndicator()
-        }))
+        alertPresenter?.show(alertModel: AlertModel(
+            title: title,
+            message: message,
+            buttonText: buttonText,
+            completion: { [weak self] in
+                guard let self = self else { return }
+                self.viewDidLoad()
+                self.showLoadingIndicator()
+            }))
     }
 }
