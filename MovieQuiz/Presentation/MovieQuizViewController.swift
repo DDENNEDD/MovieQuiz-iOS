@@ -19,15 +19,13 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         presenter.yesButtonClicked()
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
+        disableButtons()
         showLoadingIndicator()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         presenter.noButtonClicked()
-        noButton.isEnabled = false
-        yesButton.isEnabled = false
+        disableButtons()
         showLoadingIndicator()
     }
     
@@ -37,8 +35,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
-        yesButton.isEnabled = true
-        noButton.isEnabled = true
+        enableButtons()
     }
     
     func show(quiz result: QuizResultsViewModel) {
@@ -66,6 +63,16 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     func hideLoadingIndicator() {
         activityIndicator.isHidden = true
+    }
+    
+    func disableButtons() {
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
+    }
+    
+    func enableButtons() {
+        yesButton.isEnabled = true
+        noButton.isEnabled = true
     }
     
     func showNetworkError(message: String) {
