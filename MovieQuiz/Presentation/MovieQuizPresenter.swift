@@ -6,7 +6,8 @@ protocol MovieQuizViewControllerProtocol: AnyObject {
     func highlightImageBorder(isCorrectAnswer: Bool)
     func showLoadingIndicator()
     func hideLoadingIndicator()
-    
+    func enableButtons()
+    func disableButtons()
     func showNetworkError(message: String)
 }
 
@@ -79,10 +80,14 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
 
     func yesButtonClicked() {
         didAnswer(isYes: true)
+        viewController?.showLoadingIndicator()
+        viewController?.disableButtons()
     }
 
     func noButtonClicked() {
         didAnswer(isYes: false)
+        viewController?.showLoadingIndicator()
+        viewController?.disableButtons()
     }
 
     private func didAnswer(isYes: Bool) {

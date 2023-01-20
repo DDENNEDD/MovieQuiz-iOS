@@ -19,14 +19,10 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         presenter.yesButtonClicked()
-        disableButtons()
-        showLoadingIndicator()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         presenter.noButtonClicked()
-        disableButtons()
-        showLoadingIndicator()
     }
     
     func show(quiz step: QuizStepViewModel) {
