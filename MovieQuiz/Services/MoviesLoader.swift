@@ -8,9 +8,9 @@ protocol MoviesLoading {
 struct MoviesLoader: MoviesLoading {
     private let networkClient: NetworkRouting
     init(networkClient: NetworkRouting = NetworkClient()) {
-          self.networkClient = networkClient
+        self.networkClient = networkClient
       }
-    
+
     private var mostPopularMoviesUrl: URL {
         guard let url = URL(string: "https://imdb-api.com/en/API/Top250Movies/k_af3bpiej") else {
             preconditionFailure("Unable to construct mostPopularMoviesUrl")

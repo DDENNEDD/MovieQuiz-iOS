@@ -7,5 +7,5 @@ struct GameRecord: Codable, Comparable {
     }
     var correct: Int
     var total: Int
-    var date: Date    
+    var date: Date
 }
